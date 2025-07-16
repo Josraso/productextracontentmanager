@@ -219,7 +219,7 @@ class ProductExtraContentManager extends Module
 
         $sql = 'INSERT INTO `' . _DB_PREFIX_ . 'productextracontentmanager_content` 
                 (`name`, `content_text`, `content_image`, `image_width`, `image_height`, `active`, `date_add`, `date_upd`) 
-                VALUES ("' . pSQL($name) . '", "' . pSQL($content_text, false) . '", "' . pSQL($image_name) . '", 
+                VALUES ("' . pSQL($name) . '", "' . Db::getInstance()->escape($content_text, true) . '", "' . pSQL($image_name) . '", 
                 ' . (int)$image_width . ', ' . (int)$image_height . ', ' . (int)$active . ', NOW(), NOW())';
 
         if (Db::getInstance()->execute($sql)) {
@@ -319,7 +319,7 @@ class ProductExtraContentManager extends Module
 
         $sql = 'UPDATE `' . _DB_PREFIX_ . 'productextracontentmanager_content` SET 
                 `name` = "' . pSQL($name) . '", 
-                `content_text` = "' . pSQL($content_text, false) . '", 
+                `content_text` = "' . Db::getInstance()->escape($content_text, true) . '", 
                 `image_width` = ' . (int)$image_width . ', 
                 `image_height` = ' . (int)$image_height . ', 
                 `active` = ' . (int)$active . ', 
