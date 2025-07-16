@@ -49,13 +49,15 @@ class ProductExtraContentManager extends Module
         return parent::uninstall() && $this->uninstallDB();
     }
 
-public function hookActionAdminControllerSetMedia($params)
-{
-    if (Tools::getValue('configure') == $this->name) {
-        // NO cargar TinyMCE para preservar HTML puro
-        $this->context->controller->addCSS($this->_path.'views/css/admin.css');
+    public function hookActionAdminControllerSetMedia($params)
+    {
+        if (Tools::getValue('configure') == $this->name) {
+            $this->context->controller->addJS(_PS_JS_DIR_.'tiny_mce/tiny_mce.js');
+            $this->context->controller->addJS(_PS_JS_DIR_.'admin/tinymce.inc.js');
+            $this->context->controller->addJS($this->_path.'views/js/admin-tinymce-init.js');
+            $this->context->controller->addCSS($this->_path.'views/css/admin.css');
+        }
     }
-}
 
     protected function installDB()
     {
